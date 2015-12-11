@@ -34,6 +34,8 @@ gem "auto_strip_attributes", "~> 2.0"
 gem 'lograge'
 gem 'awesome_rails_console'
 gem 'pry-doc'
+gem 'resque'
+gem 'resque-status', '0.5.0'
 
 group :development, :test do
   gem 'web-console', '~> 2.0'
