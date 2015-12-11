@@ -787,7 +787,7 @@ function db_download_file
 #Saveurl
 #$1 = URL
 #$2 = Remote file destination
-#$3 = Filename
+#$3 = File name
 function db_saveurl
 {
     local URL="$1"
@@ -796,15 +796,7 @@ function db_saveurl
 
     print " > Downloading \"$URL\" to \"$FILE_DST\" as \"$FILE_NAME\" ...\n"
 
-    # $CURL_BIN $CURL_ACCEPT_CERTIFICATES -s --show-error --globoff -i -o "$RESPONSE_FILE" --data "url=$(urlencode "$URL")&oauth_consumer_key=$APPKEY&oauth_token=$OAUTH_ACCESS_TOKEN&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26$OAUTH_ACCESS_TOKEN_SECRET&oauth_timestamp=$(utime)&oauth_nonce=$RANDOM" "$API_SAVEURL_URL/$FILE_DST/$FILE_NAME"
-    # print "CURL_BIN => $CURL_BIN\n"
-    # print "CURL_ACCEPT_CERTIFICATES => $CURL_ACCEPT_CERTIFICATES\n"
-    # print "RESPONSE_FILE => $RESPONSE_FILE\n"
-    # print "&oauth_consumer_key=$APPKEY&oauth_token=$OAUTH_ACCESS_TOKEN&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26$OAUTH_ACCESS_TOKEN_SECRET&oauth_timestamp=$(utime)&oauth_nonce=$RANDOM\n"
-    # print "$API_SAVEURL_URL/$FILE_DST/$FILE_NAME\n"
-    # print "$(urlencode "$URL")"
-
-    $CURL_BIN $CURL_ACCEPT_CERTIFICATES -s --show-error --globoff -i -o "$RESPONSE_FILE" --data "url=$(urlencode "$URL")&oauth_consumer_key=$APPKEY&oauth_token=$OAUTH_ACCESS_TOKEN&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26$OAUTH_ACCESS_TOKEN_SECRET&oauth_timestamp=$(utime)&oauth_nonce=$RANDOM" "$API_SAVEURL_URL/$FILE_DST/$FILE_NAME" 2> /dev/null
+    $CURL_BIN $CURL_ACCEPT_CERTIFICATES -s --show-error --globoff -i -o "$RESPONSE_FILE" --data-urlencode "url=$URL" --data "&oauth_consumer_key=$APPKEY&oauth_token=$OAUTH_ACCESS_TOKEN&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26$OAUTH_ACCESS_TOKEN_SECRET&oauth_timestamp=$(utime)&oauth_nonce=$RANDOM" "$API_SAVEURL_URL/$FILE_DST/$FILE_NAME" 2> /dev/null
     check_http_response
 
     JOB_ID=$(sed -n 's/.*"job": *"*\([^"]*\)"*.*/\1/p' "$RESPONSE_FILE")
