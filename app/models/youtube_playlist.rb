@@ -1,0 +1,2 @@
+class YoutubePlaylist
+end
