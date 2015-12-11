@@ -4,7 +4,16 @@ class YoutubeDownloader
     @youtube_video = YoutubeVideo.new(url)
   end
   def download_to_dropbox
-    cmd = %{#{dropbox_uploader_bin} saveurl "#{youtube_video_url}" / "#{download_filename}"}
+    exec(download_to_dropbox_cmd)
+  end
+
+  private
+
+  def download_to_dropbox_cmd
+    %{#{dropbox_uploader_bin} saveurl "#{youtube_video_url}" / "#{download_filename}"}
+  end
+  def exec(cmd)
+    `#{cmd}`
   end
   def dropbox_uploader_bin
     './vendor/dropbox_uploader/dropbox_uploader.sh'
