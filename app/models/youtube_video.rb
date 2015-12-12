@@ -8,7 +8,7 @@ class YoutubeVideo
     @video_info = JSON.parse(parse_url(url))
   end
 
-  ['upload_date', 'duration', 'title', 'formats'].each do |field_name|
+  ['upload_date', 'duration', 'title', 'formats', 'description'].each do |field_name|
     define_method field_name do
       video_info[field_name]
     end
