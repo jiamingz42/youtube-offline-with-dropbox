@@ -1,7 +1,12 @@
 class YoutubeDownloadService
 
+    # cache the youtube_video
     def initialize(youtube_video_url)
-      @youtube_video = YoutubeVideo.new(youtube_video_url)
+      @youtube_video = get_youtube_video(youtube_video_url)
+    end
+
+    def get_youtube_video(youtube_video_url)
+      YoutubeVideo.new(youtube_video_url)
     end
 
     def download_url
@@ -10,6 +15,7 @@ class YoutubeDownloadService
 
     def call
 
+      # what if the job failed
       @job_id = YoutubeDownloadJobIdCache.get(@youtube_video.video_id)
       if @job_id.nil?
         @job_id = YoutubeDownloadWorker.create(url: download_url)
