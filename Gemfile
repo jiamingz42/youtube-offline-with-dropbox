@@ -37,6 +37,10 @@ gem 'pg'
 gem 'resque'
 gem 'resque-status', '0.5.0'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
