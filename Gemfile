@@ -34,6 +34,7 @@ gem "auto_strip_attributes", "~> 2.0"
 gem 'lograge'
 gem 'awesome_rails_console'
 gem 'pry-doc'
+gem 'pg'
 gem 'resque'
 gem 'resque-status', '0.5.0'
 
