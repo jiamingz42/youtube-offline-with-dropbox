@@ -36,6 +36,7 @@ gem 'pry-doc'
 gem 'pg'
 gem 'resque'
 gem 'resque-status', '0.5.0'
+gem 'resque-web', require: 'resque_web'
 
 group :production do
   gem 'rails_12factor'
