@@ -18,4 +18,6 @@ ActiveRecord::Schema.define(version: 20151211082358) do
     t.datetime "updated_at", null: false
   end
 
+  enable_extension "plpgsql"
+
 end

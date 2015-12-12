@@ -137,6 +137,7 @@ GEM
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
+    pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -179,6 +180,9 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
     rails_best_practices (1.15.7)
       activesupport
       code_analyzer (>= 0.4.3)
@@ -188,6 +192,8 @@ GEM
       json
       require_all
       ruby-progressbar
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.3)
     railties (4.2.0)
       actionpack (= 4.2.0)
       activesupport (= 4.2.0)
@@ -251,7 +257,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sqlite3 (1.3.11)
     term-ansicolor (1.0.7)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -309,10 +314,12 @@ DEPENDENCIES
   lograge
   meta_request
   nokogiri
+  pg
   pry
   pry-byebug
   pry-doc
   rails (= 4.2.0)
+  rails_12factor
   rails_best_practices
   rdoc (~> 4.2)
   resque
@@ -321,13 +328,9 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
-  sqlite3
   thin
   traceroute
   turbolinks
   uglifier (>= 1.3.0)
   unidecode (~> 1.0.0)
   web-console (~> 2.0)
-
-BUNDLED WITH
-   1.10.6
