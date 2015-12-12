@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'webhook_reciever/index'
+  match 'webhook_reciever/index', :via => [:get, :post]
 
   get 'youtube/download_to_dropbox'
 
