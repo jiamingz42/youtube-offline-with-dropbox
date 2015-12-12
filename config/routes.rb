@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'webhook_reciever/index'
+
   get 'youtube/download_to_dropbox'
 
   # The priority is based upon order of creation: first created -> highest priority.
