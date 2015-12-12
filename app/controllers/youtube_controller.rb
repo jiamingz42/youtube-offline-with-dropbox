@@ -7,7 +7,7 @@ class YoutubeController < ApplicationController
     if params[:url].present?
       @service = YoutubeDownloadService.new(params[:url])
       @progress = @service.call
-      render :text => @progress
+      render :json => @progress.as_json
     else
       render :status => 404
     end
