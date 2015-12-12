@@ -1,6 +1,6 @@
 class YoutubeDownloadWorker < Worker
   @queue = :normal
   def perform
-    puts 'YoutubeDownloadWorker working ....'
+    YoutubeDownloader.download_to_dropbox options['url']
   end
 end
