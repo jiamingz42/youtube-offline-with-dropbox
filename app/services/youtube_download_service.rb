@@ -13,12 +13,16 @@ class YoutubeDownloadService
       @youtube_video.highest_quality_mp4_url
     end
 
+    def filename
+      @youtube_video.title + '.mp4'
+    end
+
     def call
 
       # what if the job failed
       @job_id = YoutubeDownloadJobIdCache.get(@youtube_video.video_id)
       if @job_id.nil?
-        @job_id = YoutubeDownloadWorker.create(url: download_url)
+        @job_id = YoutubeDownloadWorker.create(url: download_url, filename: filename)
         @job_id = YoutubeDownloadJobIdCache.set(@youtube_video.video_id, @job_id)
       end
 
