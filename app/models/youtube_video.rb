@@ -34,6 +34,10 @@ class YoutubeVideo
     res
   end
 
+  def video_id
+    video_info['id']
+  end
+
   # @example highest_quality_mp4
   # @example highest_quality_mp4_url
   # @example highest_quality_webm
@@ -48,7 +52,7 @@ class YoutubeVideo
     end
   end
 
-  private
+  # private
 
   def parse_url(url)
     command = "youtube-dl -J #{url}"
