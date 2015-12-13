@@ -2,6 +2,8 @@
 
 if ENV["REDISCLOUD_URL"]
   $redis = Resque.redis = Redis.new(:url => ENV["REDISCLOUD_URL"])
+else
+  $reids = Resque.redis = Redis.new
 end
 
 # Setup the status expiration time

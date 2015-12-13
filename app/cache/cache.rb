@@ -5,7 +5,7 @@ class Cache
   class << self
 
     def data
-      @data ||= Redis.new
+      @data ||= $redis
     end
 
     # @example
