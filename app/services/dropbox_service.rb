@@ -17,6 +17,15 @@ class DropboxService < Delegator
   end
 
   # Example
+  #
   # @service.save_url(path, url)
-
+  # = > {
+  #  "status" => "PENDING",
+  #  "job" => "KV9HFqDnpVgAAAAAAADKVw"
+  # }
+  #
+  # @service.save_url_job(job_id)
+  # {
+  #     "status" => "COMPLETE"
+  # }
 end
