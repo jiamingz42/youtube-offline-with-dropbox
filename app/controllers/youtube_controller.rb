@@ -4,8 +4,16 @@ class YoutubeController < ApplicationController
 
   def download_to_dropbox
     if params[:url].present?
-      @service = YoutubeDownloadService.new(params[:url])
-      @progress = @service.call
+      uri = URI(params[:url])
+      case uri.path
+      when '/watch'
+        @service = YoutubeDownloadService.new(params[:url])
+        @progress = @service.call
+      when '/playlist'
+        puts 'do something with the playlist'
+      else
+        raise ArgumentError.new("Invalid URL")
+      end
     else
       render :status => 404
     end
