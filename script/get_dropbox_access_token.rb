@@ -2,8 +2,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require File.expand_path('../../vendor/dropbox_sdk/lib/dropbox_sdk.rb', __FILE__)
 
 # Get your app key and secret from the Dropbox developer website
-APP_KEY = 'ty6ns268utylw0q'
-APP_SECRET = '465q1ig1n5h7ja2'
+APP_KEY = ENV['DROPBOX_APP_KEY']
+APP_SECRET = ENV['DROPBOX_APP_SECRET']
 
 flow = DropboxOAuth2FlowNoRedirect.new(APP_KEY, APP_SECRET)
 authorize_url = flow.start()
