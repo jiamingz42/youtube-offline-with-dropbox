@@ -31,6 +31,12 @@ class YoutubeDownloadService
       ServiceProgress.new(@youtube_video, @status)
     end
 
+    private
+
+    def dropbox_service
+      @dropbox_service ||= DropboxService.new(ENV['DROPBOX_ACCESS_TOKEN'])
+    end
+
 end
 
 class ServiceProgress
