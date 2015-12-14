@@ -5,11 +5,10 @@ class YoutubeController < ApplicationController
   def download_to_dropbox
     if params[:url].present?
       uri = URI(params[:url])
-      case uri.path
-      when '/watch'
+      if uri.host == 'youtu.be' || uri.path == '/watch'
         @service = YoutubeDownloadService.new(params[:url])
         @progress = @service.call
-      when '/playlist'
+      elsif uri.path ==  '/playlist'
         puts 'do something with the playlist'
       else
         raise ArgumentError.new("Invalid URL")
