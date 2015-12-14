@@ -1,2 +1,72 @@
-<h1>Youtube#download_to_dropbox</h1>
-<p>Find me in app/views/youtube/download_to_dropbox.html.erb</p>
+<style>
+  table {
+    width: 100%;
+  }
+  table tr td {
+    border-bottom: 1px solid grey;
+    padding: 10px 5px;
+    vertical-align: top;
+  }
+  table tr td:nth-child(1) {
+    width: 90px;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .highlight {
+    background-color: lightyellow;
+  }
+</style>
+
+<div class="video-info">
+  <h1>Dropbox Save URL</h1>
+  <% if @progress['dropbox_save_url_job'].present? %>
+    <table>
+      <tbody>
+        <tr>
+          <td class='bold'>Status</td>
+          <td class='highlight'><%= @progress['dropbox_save_url_job']['status'] %></td>
+        </tr>
+        <tr>
+          <td class='bold'>Job</td>
+          <td><%= @progress['dropbox_save_url_job']['job'] %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Dropbox Save URL status is not available.</p>
+  <% end %>
+</div>
+
+
+<div class="video-info">
+  <h1>Video Info</h1>
+  <% if @progress['dropbox_save_url_job'].present? %>
+    <table>
+      <tbody>
+        <tr>
+          <td class='bold'>ID</td>
+          <td><%= @progress['video_info']['video_id'] %></td>
+        </tr>
+        <tr>
+          <td class='bold'>Title</td>
+          <td><%= @progress['video_info']['title'] %></td>
+        </tr>
+        <tr>
+          <td class='bold'>Updated At</td>
+          <td><%= @progress['video_info']['upload_date'] %></td>
+        </tr>
+        <tr>
+          <td class='bold'>Duration</td>
+          <td><%= @progress['video_info']['duration'] %></td>
+        </tr>
+        <tr>
+          <td class='bold'>Description</td>
+          <td><%= raw @progress['video_info']['description'].gsub("\n", "<br>") %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Video info is not available.</p>
+  <% end %>
+</div>
