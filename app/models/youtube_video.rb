@@ -20,7 +20,7 @@ class YoutubeVideo
   end
 
   def save_path
-    "title.#{ext}"
+    "#{title}.#{ext}"
   end
 
   def download_url
