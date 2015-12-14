@@ -4,14 +4,27 @@ class YoutubeVideo
   VIDEO_DOWNLOAD_URL = 0
   AUDIO_DOWNLOAD_URL = 1
 
-  def initialize(url)
-    @video_info = JSON.parse(parse_url(url))
+  def initialize(youtube_video_url, ext = 'mp4')
+    @video_info = JSON.parse parse_url(youtube_video_url)
+    @ext = ext
   end
 
   ['upload_date', 'duration', 'title', 'formats', 'description'].each do |field_name|
     define_method field_name do
       video_info[field_name]
     end
+  end
+
+  def ext
+    @ext
+  end
+
+  def save_path
+    "title.#{ext}"
+  end
+
+  def download_url
+    send("highest_quality_#{ext}_url")
   end
 
   def media_formats(filters = {})
@@ -52,7 +65,7 @@ class YoutubeVideo
     end
   end
 
-  # private
+  private
 
   def parse_url(url)
     command = "youtube-dl -J #{url}"
@@ -62,23 +75,5 @@ class YoutubeVideo
   def video_info
     @video_info
   end
-
-  class << self
-
-    def get_download_url(url, url_type = VIDEO_DOWNLOAD_URL)
-      command = "#{youtube_dl_bin} -g #{url}"
-      download_urls_string = `#{command}`
-      download_urls = download_urls_string.split
-      download_urls[url_type]
-    end
-
-    private
-
-    def youtube_dl_bin
-      'youtube-dl'
-    end
-
-  end
-
 
 end
