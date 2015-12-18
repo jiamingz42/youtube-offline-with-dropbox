@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dropbox/save_url'
+
   mount ResqueWeb::Engine => '/resque_web'
 
   match 'webhook_reciever/index', :via => [:get, :post]
