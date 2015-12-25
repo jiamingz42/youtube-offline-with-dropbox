@@ -38,6 +38,7 @@ gem 'pg'
 gem 'resque'
 gem 'resque-status', '0.5.0'
 gem 'resque-web', require: 'resque_web'
+gem 'google-api-client', require: 'google/api_client'
 
 group :production do
   gem 'rails_12factor'
