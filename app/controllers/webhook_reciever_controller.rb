@@ -5,6 +5,7 @@ class WebhookRecieverController < ApplicationController
   end
 
   def email
+    ap params
     render :json => params
   end
 end
