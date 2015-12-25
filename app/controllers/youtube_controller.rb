@@ -1,5 +1,7 @@
 class YoutubeController < ApplicationController
 
+  before_filter :authenticate
+  
   def download_to_dropbox
     if params[:url].present?
       uri = URI(params[:url])

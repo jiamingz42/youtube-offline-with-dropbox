@@ -1,4 +1,7 @@
 class DropboxController < ApplicationController
+
+  before_filter :authenticate
+  
   def save_url
     if [:url, :path].all? { |f| params[f].present? }
       @dropbox_service = DropboxService.new(ENV['DROPBOX_ACCESS_TOKEN'])
