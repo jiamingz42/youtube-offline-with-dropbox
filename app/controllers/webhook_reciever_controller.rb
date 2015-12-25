@@ -18,7 +18,11 @@ class WebhookRecieverController < ApplicationController
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
-        render :text => youtube_long_url
+        ApplicationMailer.send_mail({
+          subject: 'Youtube Video URL',
+          youtube_long_url: youtube_long_url}
+        ).deliver
+        render :text => :ok
       end
     else
       render :status => 500
