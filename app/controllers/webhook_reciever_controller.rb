@@ -1,6 +1,10 @@
 class WebhookRecieverController < ApplicationController
-  def index
-    Rails.logger.info!('Recieve webhook ....', :obj => params, :context => binding)
-    render :text => :success
+
+  def slack
+    render :text => params
+  end
+
+  def email
+    render :json => params
   end
 end
