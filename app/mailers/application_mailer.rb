@@ -4,7 +4,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_mail(options = {})
     @options = options
-    mail(to: 'benjamin19890721@gmail.com', subject: options[:subject])
+    mail(to: 'drops@ukeeper.com', subject: options[:subject])
   end
 
 
