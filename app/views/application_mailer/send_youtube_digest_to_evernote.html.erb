@@ -1,7 +1,9 @@
 <h1><%= @youtube_vidoe.title %></h1>
 
 <div class="thumbnail">
-  <%= image_tag attachments['thumbnails'].url, :style => 'max-width: 500px' %>
+  <%= link_to @youtube_vidoe.youtube_video_url, :target => '_blank' do %>
+    <%= image_tag attachments['thumbnails'].url, :style => 'max-width: 500px' %>
+  <% end %>
 </div>
 
 <div class="description">
