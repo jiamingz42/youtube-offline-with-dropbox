@@ -63,4 +63,5 @@ group :development, :test do
   gem 'bullet'
   gem 'rails_best_practices'
   gem 'code-cleaner', '~> 0.8.2'
+  gem "letter_opener"
 end

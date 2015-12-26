@@ -153,6 +153,8 @@ GEM
       less (~> 2.6.0)
       sprockets (> 2, < 4)
       tilt
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     little-plugger (1.1.4)
     logging (2.0.0)
       little-plugger (~> 1.1)
@@ -372,6 +374,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json
+  letter_opener
   lograge
   meta_request
   nokogiri
