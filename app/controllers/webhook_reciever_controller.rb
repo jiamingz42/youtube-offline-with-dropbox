@@ -7,8 +7,8 @@ class WebhookRecieverController < ApplicationController
   end
 
   def email
-    sender  = params['headers']['Sender']
-    subject = params['headers']['Subject']
+    # sender  = params['headers']['Sender']
+    # subject = params['headers']['Subject']
     body    = params['plain']
 
     # if sender == 'benjamin19890721@gmail.com'
@@ -16,7 +16,7 @@ class WebhookRecieverController < ApplicationController
       regex = /(http:\/\/youtu\.be\/.*)/
       match = regex.match(body)
       if match.nil?
-        render :status => 500
+        render :text => 'No Match'
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
@@ -24,7 +24,7 @@ class WebhookRecieverController < ApplicationController
           subject: 'Youtube Video URL',
           youtube_long_url: youtube_long_url}
           ).deliver
-        render :text => :ok
+        render :text => 'OK'
       end
     # else
       # render :status => 500
