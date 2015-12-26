@@ -3,7 +3,6 @@ class WebhookRecieverController < ApplicationController
   before_filter :show_params
 
   def slack
-    Rails.logger.
     render :text => params
   end
 
@@ -22,9 +21,10 @@ class WebhookRecieverController < ApplicationController
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
-        ApplicationMailer.send_mail({
+        youtube_vidoe = YoutubeVideo.new(youtube_long_url)
+        ApplicationMailer.send_youtube_digest_to_evernote({
           subject: 'Youtube Video URL',
-          youtube_long_url: youtube_long_url}
+          youtube_vidoe: youtube_vidoe }
           ).deliver
         puts 'deliver'.green
         render :text => 'OK'

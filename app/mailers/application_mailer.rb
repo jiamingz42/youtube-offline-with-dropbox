@@ -1,10 +1,13 @@
 class ApplicationMailer < ActionMailer::Base
+
   default from: "benjamin19890721@gmail.com"
   layout 'mailer'
 
-  def send_mail(options = {})
-    @youtube_url = options[:youtube_long_url]
-    mail(to: 'drops@ukeeper.com', subject: "#{options[:subject]} @Youtube #Youtube")
+  EVERNOTE_EMAIL = 'benjamin19890721.64fd093@m.evernote.com'
+
+  def send_youtube_digest_to_evernote(options = {})
+    @youtube_vidoe = options[:youtube_vidoe]
+    mail(to: EVERNOTE_EMAIL, subject: "#{options[:subject]} @Youtube #Youtube")
   end
 
 end
