@@ -1,4 +1,4 @@
-class YoutubeDownloadService
+class YoutubeService
 
     # @param [String]
     #   @example https://www.youtube.com/watch?v=MNrZKiamgIw
@@ -12,7 +12,7 @@ class YoutubeDownloadService
 
     # @todo restart failed job
     def call
-      @job_id = cache.get_or_set_if_not_existed("YoutubeDownloadService:#{youtube_video_url}", expire_after: 60*60*24) do
+      @job_id = cache.get_or_set_if_not_existed("YoutubeService:#{youtube_video_url}", expire_after: 60*60*24) do
         YoutubeDownloadWorker.create(youtube_video_url: youtube_video_url)
       end
       job_status
