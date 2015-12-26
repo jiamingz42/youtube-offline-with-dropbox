@@ -30,5 +30,6 @@ module Youtube2Dropbox
     config.active_job.queue_adapter = :resque
 
     config.logger = Logger.new(STDOUT)
+    config.log_level = :debug
   end
 end
