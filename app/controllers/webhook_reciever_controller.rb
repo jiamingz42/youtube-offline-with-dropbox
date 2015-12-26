@@ -1,5 +1,7 @@
 class WebhookRecieverController < ApplicationController
 
+  before_filter :show_params
+
   def slack
     render :text => params
   end
@@ -18,14 +20,22 @@ class WebhookRecieverController < ApplicationController
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
-        ApplicationMailer.send({
+        ApplicationMailer.send_mail({
           subject: 'Youtube Video URL',
           youtube_long_url: youtube_long_url}
           ).deliver
         render :text => :ok
       end
     # else
-    #   render :status => 500
+      # render :status => 500
     # end
   end
+
+private
+
+    def show_params
+      Rails.logger.info!('params => ', obj: params, context: binding)
+    end
+
+
 end
