@@ -10,12 +10,14 @@ class WebhookRecieverController < ApplicationController
     # sender  = params['headers']['Sender']
     # subject = params['headers']['Subject']
     body    = params['plain']
+    Rails.logger.info!('params => ', obj: params, context: binding)
 
     # if sender == 'benjamin19890721@gmail.com'
       # find the URL and expand the it
       regex = /(http:\/\/youtu\.be\/.*)/
       match = regex.match(body)
       if match.nil?
+        puts 'match nil'.green
         render :text => 'No Match'
       else
         youtube_short_url = match[0]
@@ -24,6 +26,7 @@ class WebhookRecieverController < ApplicationController
           subject: 'Youtube Video URL',
           youtube_long_url: youtube_long_url}
           ).deliver
+        puts 'deliver'.green
         render :text => 'OK'
       end
     # else
