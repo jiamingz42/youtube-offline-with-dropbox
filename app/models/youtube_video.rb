@@ -10,7 +10,7 @@ class YoutubeVideo
     @ext = ext
   end
 
-  ['upload_date', 'duration', 'title', 'formats', 'description'].each do |field_name|
+  ['upload_date', 'duration', 'title', 'formats', 'description', 'thumbnails'].each do |field_name|
     define_method field_name do
       video_info[field_name]
     end
