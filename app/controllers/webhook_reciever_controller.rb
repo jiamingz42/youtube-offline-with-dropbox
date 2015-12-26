@@ -14,7 +14,7 @@ class WebhookRecieverController < ApplicationController
 
     # if sender == 'benjamin19890721@gmail.com'
       # find the URL and expand the it
-      regex = /(http:\/\/youtu\.be\/.*)/
+      regex = /(http[s]?:\/\/youtu\.be\/.*)/
       match = regex.match(body)
       if match.nil?
         puts 'match nil'.green

@@ -1,5 +1,3 @@
-Rails.logger = Logger.new(STDOUT)
-
 # Formats implementation comes from gem 'colored'
 # Ref: https://github.com/defunkt/colored/blob/master/lib/colored.rb
 #
