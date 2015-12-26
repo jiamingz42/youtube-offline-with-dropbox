@@ -3,6 +3,7 @@ class WebhookRecieverController < ApplicationController
   before_filter :show_params
 
   def slack
+    Rails.logger.
     render :text => params
   end
 
@@ -10,7 +11,6 @@ class WebhookRecieverController < ApplicationController
     # sender  = params['headers']['Sender']
     # subject = params['headers']['Subject']
     body    = params['plain']
-    Rails.logger.info!('params => ', obj: params, context: binding)
 
     # if sender == 'benjamin19890721@gmail.com'
       # find the URL and expand the it
@@ -37,7 +37,7 @@ class WebhookRecieverController < ApplicationController
 private
 
     def show_params
-      Rails.logger.info!('params => ', obj: params, context: binding)
+      ap params
     end
 
 
