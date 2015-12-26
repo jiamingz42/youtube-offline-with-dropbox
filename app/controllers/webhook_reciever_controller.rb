@@ -25,7 +25,7 @@ class WebhookRecieverController < ApplicationController
         ApplicationMailer.send_youtube_digest_to_evernote({
           subject: 'Youtube Video URL',
           youtube_vidoe: youtube_vidoe }
-          ).deliver
+          ).deliver_now
         puts 'deliver'.green
         render :text => 'OK'
       end
