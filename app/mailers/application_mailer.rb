@@ -7,7 +7,8 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_youtube_digest_to_evernote(options = {})
     @youtube_vidoe = options[:youtube_vidoe]
-    attachments['thumbnails'] = File.read(Rails.root.join("app/assets/images/panda.jpg"))
+    uri = URI(@youtube_vidoe.thumbnails.first['url'].gsub('https', 'http'))
+    attachments['thumbnails'] = Net::HTTP.get(uri)
     mail(to: EVERNOTE_EMAIL, subject: "#{options[:subject]} @Youtube #Youtube")
   end
 
