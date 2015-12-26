@@ -1,1 +1,14 @@
-<%= @youtube_url %>
+<h1><%= @youtube_vidoe.title %></h1>
+
+<div class="thumbnail">
+
+</div>
+
+<div class="description">
+  <h2>Description</h2>
+  <p><%= raw @youtube_vidoe.description.gsub("\n", "<br>") %></p>
+</div>
+
+<div class="source">
+  Source: <a href="<%= @youtube_vidoe.youtube_video_url %>"><%= @youtube_vidoe.youtube_video_url %></a>
+</div>
