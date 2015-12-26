@@ -4,7 +4,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_mail(options = {})
     @youtube_url = options[:youtube_long_url]
-    mail(to: 'drops@ukeeper.com', subject: "#{options[:subject]} #Youtube")
+    mail(to: 'drops@ukeeper.com', subject: "#{options[:subject]} @Youtube #Youtube")
   end
 
 end
