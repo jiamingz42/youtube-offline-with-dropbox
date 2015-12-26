@@ -5,6 +5,7 @@ class YoutubeVideo
   AUDIO_DOWNLOAD_URL = 1
 
   def initialize(youtube_video_url, ext = 'mp4')
+    @youtube_video_url = youtube_video_url
     @video_info = JSON.parse parse_url(youtube_video_url)
     @ext = ext
   end
@@ -13,6 +14,10 @@ class YoutubeVideo
     define_method field_name do
       video_info[field_name]
     end
+  end
+
+  def youtube_video_url
+    @youtube_video_url
   end
 
   def ext
