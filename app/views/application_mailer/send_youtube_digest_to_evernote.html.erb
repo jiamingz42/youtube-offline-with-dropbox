@@ -12,6 +12,7 @@
   <p><%= raw @youtube_vidoe.description.gsub("\n", "<br>") %></p>
 </div>
 
-<div class="source">
-  Source: <a href="<%= @youtube_vidoe.youtube_video_url %>"><%= @youtube_vidoe.youtube_video_url %></a>
+<div class="tags">
+  <h2>Tags</h2>
+  <p style='color: grey'><%= @youtube_vidoe.tags.join(', ') %></p>
 </div>
