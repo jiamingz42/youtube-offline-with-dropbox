@@ -3,10 +3,9 @@ class CloudMailinMessage
   attr_accessor :subject, :sender, :recipient, :plain_body
 
   def initialize(options = {})
-    subject    = options[:subject]
-    sender     = options[:sender]
-    recipient  = options[:recipient]
-    plain_body = options[:plain_body]
+    [:subject, :sender, :recipient, :plain_body].each do |attr_name|
+      self.send("#{attr_name}=", options[attr_name])
+    end
   end
 
   class << self
