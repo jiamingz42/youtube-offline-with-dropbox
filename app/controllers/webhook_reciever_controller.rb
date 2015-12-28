@@ -24,11 +24,12 @@ class WebhookRecieverController < ApplicationController
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
+        Rails.logger.debug!('youtube_long_url =>', obj: youtube_long_url, context: binding)
         youtube_vidoe = YoutubeVideo.new(youtube_long_url)
         if message.subject_match?(/Save Watch Later Youtube Video to Dropbox/)
-          redirect_to controller: 'dropbox', action: 'save_url',
-            service_key: ENV['MY_SERVICE_KEY'],
-            url: youtube_short_url and return
+          @service = YoutubeService.new(youtube_long_url)
+          @progress = @service.call
+          render :json => @progress and return
         elsif message.subject_match?(/Save Liked Youtube Video to Evernote/)
           ApplicationMailer.send_youtube_digest_to_evernote({
             subject: 'Youtube Video URL',
