@@ -3,7 +3,6 @@ class YoutubeController < ApplicationController
   before_filter :authenticate
 
   def download_to_dropbox
-    render :json => params and return
     if params[:url].present?
       uri = URI(params[:url])
       if uri.host == 'youtu.be' || uri.path == '/watch'
