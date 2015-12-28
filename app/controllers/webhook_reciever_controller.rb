@@ -7,9 +7,9 @@ class WebhookRecieverController < ApplicationController
   end
 
   def email
-    # sender  = params['headers']['Sender']
-    # subject = params['headers']['Subject']
-    body    = params['plain']
+    msg = CloudMailinMessage.create_from_params(params)
+
+    body = msg.plain_body
 
     # if sender == 'benjamin19890721@gmail.com'
       # find the URL and expand the it
