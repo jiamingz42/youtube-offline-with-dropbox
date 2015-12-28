@@ -16,7 +16,7 @@ class WebhookRecieverController < ApplicationController
       regex = /(http[s]?:\/\/youtu\.be\/.*)/
       match = regex.match(body)
       if match.nil?
-        Rails.logger.debug('No Match', context: binding)
+        Rails.logger.debug!('No Match', context: binding)
         render :text => 'No Match'
       else
         youtube_short_url = match[0]
@@ -26,7 +26,7 @@ class WebhookRecieverController < ApplicationController
           subject: 'Youtube Video URL',
           youtube_vidoe: youtube_vidoe }
           ).deliver_now
-        Rails.logger.debug('OK', context: binding)
+        Rails.logger.debug!('OK', context: binding)
         render :text => 'OK'
       end
     # else
