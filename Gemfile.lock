@@ -364,6 +364,7 @@ DEPENDENCIES
   byebug
   code-cleaner (~> 0.8.2)
   coffee-rails (~> 4.1.0)
+  colored (~> 1.2)
   devise
   exception_notification (~> 4.1, >= 4.1.1)
   factory_girl_rails
