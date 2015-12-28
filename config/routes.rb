@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'dropbox/save_url'
+  match 'dropbox/save_url', :via => [:get, :post]
 
   mount ResqueWeb::Engine => '/resque_web'
 
