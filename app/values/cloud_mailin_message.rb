@@ -8,6 +8,12 @@ class CloudMailinMessage
     end
   end
 
+  [:subject, :sender, :recipient, :plain_body].each do |attr_name|
+    define_method("#{attr_name}_match?") do |pattern|
+      self.send(attr_name).match(pattern).present?
+    end
+  end
+
   class << self
     def create_from_params(params = {})
       headers = params['headers']||{}
