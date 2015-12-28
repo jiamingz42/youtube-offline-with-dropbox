@@ -22,7 +22,7 @@
 
 class << Rails.logger
 
-  LOG_LEVELS = {
+  @log_level = {
     :debug    => { :formats => ['blue']            },
     :info     => { :formats => ['green']           },
     :warn     => { :formats => ['yellow']          },
@@ -36,36 +36,30 @@ class << Rails.logger
   #   Rails.logger.debug!('Send debug message', :object => current_user)
   #   Rails.logger.error!('Send error message', :object => current_user, :binding => self.binding())
 
-  LOG_LEVELS.each do |log_level, log_settings|
+  @log_level.each do |log_level, log_settings|
     formats = log_settings[:formats]
     define_method("#{log_level}!") do |log_body, options = {}|
 
-      begin
+      object  = options[:obj]
+      binding = options[:context]
 
-        object  = options[:obj]
-        binding = options[:context]
+      log_prefix = get_log_prefix(binding)
 
-        log_prefix = get_log_prefix(binding)
+      body_formats   = log_settings[:formats]
+      prefix_formats = log_settings[:formats] + %w(underline)
 
-        body_formats   = log_settings[:formats]
-        prefix_formats = log_settings[:formats] + %w(underline)
+      formated_body   = apply_formats(log_body, body_formats)
+      formated_prefix = apply_formats(log_prefix, prefix_formats)
 
-        formated_body   = apply_formats(log_body, body_formats)
-        formated_prefix = apply_formats(log_prefix, prefix_formats)
+      log_message = get_log_message(formated_prefix, formated_body)
 
-        log_message = get_log_message(formated_prefix, formated_body)
+      self.send(log_level, log_message)
 
-        self.send(log_level, log_message)
-
-        if !object.nil? && object.respond_to?(:ai)
-          object_repr = object.ai(:indent => 2)
-          object_repr.split("\n").each do |line|
-            self.send(log_level, line)
-          end
+      if !object.nil? && object.respond_to?(:ai)
+        object_repr = object.ai(:indent => 2)
+        object_repr.split("\n").each do |line|
+          self.send(log_level, line)
         end
-
-      rescue
-        # TODO: just in case something goes wrong
       end
 
     end
