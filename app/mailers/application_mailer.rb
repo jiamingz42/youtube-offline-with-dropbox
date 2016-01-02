@@ -7,7 +7,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_youtube_digest_to_evernote(options = {})
     @youtube_vidoe = options[:youtube_vidoe]
-    mail(to: 'benjamin19890721+forward2evernote@gmail.com, benjamin19890721.64fd093@m.evernote.com', subject: "#{@youtube_vidoe.title} @Youtube #Youtube")
+    mail(to: 'benjamin19890721.64fd093@m.evernote.com', subject: "#{@youtube_vidoe.title} @Youtube #Youtube")
   end
 
 end
