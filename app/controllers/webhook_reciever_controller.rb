@@ -20,7 +20,7 @@ class WebhookRecieverController < ApplicationController
       match = regex.match(message.plain_body)
       if match.nil?
         Rails.logger.debug!('No Match', context: binding)
-        render :text => 'No Match'
+        render :text => 'No Match' and return
       else
         youtube_short_url = match[0]
         youtube_long_url = ExpandUrlService.lengthen(youtube_short_url)
@@ -36,7 +36,7 @@ class WebhookRecieverController < ApplicationController
             youtube_vidoe: youtube_vidoe }
             ).deliver_now
           Rails.logger.debug!('OK', context: binding)
-          render :text => 'OK'
+          render :text => 'OK' and return
         end
       end
     end
