@@ -1,0 +1,35 @@
+require File.expand_path('../../config/environment', __FILE__)
+require 'trello'
+
+# https://github.com/jeremytregunna/ruby-trello
+
+Trello.configure do |config|
+  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
+  config.member_token = ENV['TRELLO_MEMBER_TOKEN']
+end
+
+me = Trello::Member::find(ENV['TRELLO_MEMBER_NAME'])
+
+board = me.boards.find { |b| b.name == "Person Study Board" }
+card = board.cards.find { |c| c.name == 'Book: Pro Git' }
+
+checklist_name = 'Reading Progress'
+checklist = card.checklists.find { |c| c.name = checklist_name }
+unless checklist.present?
+  checklist = Trello::Checklist.new(name: checklist_name)
+  card.add_checklist(checklist)
+end
+
+loop do
+  begin
+    checklist = card.checklists.find { |c| c.name = checklist_name } # reload
+    total_chapter = 10
+    (1..total_chapter).each do |chapter_i|
+      chapter_i_as_s = "%.#{total_chapter.to_s.length}d" % chapter_i
+      checklist.add_item("Chapter #{chapter_i_as_s}")
+    end
+    break
+  rescue Trello::Error => error
+    puts error
+  end
+end
