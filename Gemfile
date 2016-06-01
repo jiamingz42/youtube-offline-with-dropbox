@@ -41,6 +41,7 @@ gem 'resque-web', require: 'resque_web'
 gem 'google-api-client', require: 'google/api_client'
 gem 'colored', '~> 1.2'
 gem 'ruby-trello'
+gem 'pocket-ruby', :git => 'https://github.com/benjamin19890721/pocket-ruby.git'
 
 group :production do
   gem 'rails_12factor'
