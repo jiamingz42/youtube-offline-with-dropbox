@@ -8,6 +8,13 @@ GIT
       hashie (>= 0.4.0)
       multi_json (~> 1.0, >= 1.0.3)
 
+GIT
+  remote: https://github.com/z-jason/wunderlist-api.git
+  revision: fff030355ad651157f716a33e764caf0f0857e35
+  specs:
+    wunderlist-api (1.0.0)
+      faraday (~> 0.9.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -434,6 +441,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unidecode (~> 1.0.0)
   web-console (~> 2.0)
+  wunderlist-api!
 
 RUBY VERSION
    ruby 2.1.7p400

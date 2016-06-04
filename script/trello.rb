@@ -11,7 +11,7 @@ end
 me = Trello::Member::find(ENV['TRELLO_MEMBER_NAME'])
 
 board = me.boards.find { |b| b.name == "Person Study Board" }
-card = board.cards.find { |c| c.name == 'Book: Pro Git' }
+card = board.cards.find { |c| c.name == 'Book: Spark' }
 
 checklist_name = 'Reading Progress'
 checklist = card.checklists.find { |c| c.name = checklist_name }
