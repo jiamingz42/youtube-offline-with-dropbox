@@ -18,9 +18,15 @@ task :update_pocket_unread_article_count => :environment do
     access_token: ENV['POCKET_ACCESS_TOKEN'],
     consumer_key: ENV['POCKET_CONSUMER_KEY']
   )
-  unread_article_count = pocket_client.retrieve({state: 'unread'})['list'].size
+  unread_items = pocket_client.retrieve({state: 'unread'})['list'].values
+  unread_article_count = unread_items.size
 
-  card.name = "Pocket: #{unread_article_count} Unread Article"
+  card.name = "Pocket: #{unread_article_count} Unread Items"
+  card.desc = <<-EOS
+#{unread_items.select { |v| v['is_article'] == '1' }.size} items are article
+#{unread_items.select { |v| /pdf/.match v['given_url'] }.size} items are PDF
+#{unread_items.select { |v| v['has_video'] != '0' }.size} items contains video(s)
+  EOS
   card.save
 
 end
