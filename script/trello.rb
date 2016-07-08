@@ -1,16 +1,8 @@
 require File.expand_path('../../config/environment', __FILE__)
-require 'trello'
 
-# https://github.com/jeremytregunna/ruby-trello
+boards = TrelloClient.instance.boards
 
-Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
-  config.member_token = ENV['TRELLO_MEMBER_TOKEN']
-end
-
-me = Trello::Member::find(ENV['TRELLO_MEMBER_NAME'])
-
-board = me.boards.find { |b| b.name == "Person Study Board" }
+board = boards.find { |b| b.name == "Person Study Board" }
 card = board.cards.find { |c| c.name == 'Book: Spark' }
 
 checklist_name = 'Reading Progress'
