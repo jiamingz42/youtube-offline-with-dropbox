@@ -1,24 +1,31 @@
 require File.expand_path('../../config/environment', __FILE__)
 
-card = TrelloClient.instance
-                   .boards
-                   .find { |b| b.name == 'Study Board' }
-                   .lists
-                   .find { |l| l.name == 'Active Project' }
-                   .cards
-                   .find { |c| c.name == 'Read Uber Engineer Blog' }
-
-checklist = card.checklists.first
-
-page = HTTParty.get("http://eng.uber.com/")
-pp = Nokogiri::XML.parse(page)
-
-pp.css(".post .post_link a")
-  .reverse
-  .each do |item|
-    title = item.text.strip
-    url = BitlyClient.instance.shorten(item['href']).short_url
-    checklist.add_item("#{title} #{url}")
+def find(array, options = {})
+  new_array = options.inject(array) do |acc, (key, matcher)|
+    acc.select do |item| 
+      value = item.send(key)
+      if matcher.class == Regexp
+        matcher.match(value)
+      else
+        matcher == value
+      end
+    end
   end
+  new_array.first
+end
 
-#
+
+board = find(TrelloClient.instance.boards, name: 'Study Board (Archived)')
+
+cards = board.lists
+             .map { |l| find(l.cards, name: /^Pocket:/) }
+             .flatten
+
+label = find(board.labels, name: 'Pocket')
+
+cards.each do |card|
+  unless card.labels.include?(label)
+    card.add_label(label)
+  end
+end
+

@@ -30,3 +30,43 @@ task :update_pocket_unread_article_count => :environment do
   card.save
 
 end
+
+task :auto_attach_label => :environment do
+
+  def find(array, options = {})
+    new_array = options.inject(array) do |acc, (key, matcher)|
+      acc.select do |item| 
+        value = item.send(key)
+        if matcher.class == Regexp
+          matcher.match(value)
+        else
+          matcher == value
+        end
+      end
+    end
+    new_array.first
+  end
+
+  ['Study Board', 'Study Board (Archived)'].each do |board_name|
+
+    board = find(TrelloClient.instance.boards, name: board_name)
+
+    course_label = find(board.labels, name: 'Course')
+    book_label = find(board.labels, name: 'Book')
+
+    board.lists.each do |list|
+      list.cards.each do |card|
+        if /^\u{1F3DB}/.match(card.name)
+          unless card.labels.include?(course_label)
+            card.add_label(course_label)
+          end
+        elsif /^[📕📘📗📓]/.match(card.name)
+          unless card.labels.include?(book_label)
+            card.add_label(book_label)
+          end
+        end
+      end
+    end
+  end
+
+end
