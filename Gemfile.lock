@@ -54,6 +54,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    amazon-review (0.0.1)
+      nokogiri (> 1.5.6)
     arel (6.0.3)
     auto_strip_attributes (2.0.6)
       activerecord (>= 3.0)
@@ -364,6 +366,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  amazon-review
   auto_strip_attributes (~> 2.0)
   awesome_print (~> 1.6, >= 1.6.1)
   awesome_rails_console

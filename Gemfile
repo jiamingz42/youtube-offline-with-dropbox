@@ -46,6 +46,7 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'ruby-trello', require: 'trello'
 gem 'bitly'
+gem 'amazon-review'
 
 group :production do
   gem 'rails_12factor'
