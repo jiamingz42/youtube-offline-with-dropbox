@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'youtube/download_to_dropbox'
   get 'youtube/save_to_evernote'
 
-  get 'job/status/:job_id', to: 'jobs#status'
+  get 'pocket/random_unread_article'
 
+  get 'job/status/:job_id', to: 'jobs#status'
 end
