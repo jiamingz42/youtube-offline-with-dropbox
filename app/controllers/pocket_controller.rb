@@ -7,7 +7,7 @@ class PocketController < ApplicationController
       Cache.set('unread_article_count', unread_article_count, expire_after: 60 * 60)
     end
     resp = pocket_client.retrieve(state: 'unread', count: 1, offset: rand(unread_article_count + 1))
-    render json: resp['list'].values.first
+    @article = resp['list'].values.first
   end
 
   private
