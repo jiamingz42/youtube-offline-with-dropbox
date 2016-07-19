@@ -1,3 +1,5 @@
+<% header_style = 'font-size: 1.5em; font-weight: bold; margin-bottom: 8px; margin-top: 20px' %>
+
 <h1><%= @youtube_vidoe.title %></h1>
 
 <div class="thumbnail">
@@ -7,17 +9,13 @@
   <% end %>
 </div>
 
-<div class="description">
-  <h2>Description</h2>
-  <p><%= raw @youtube_vidoe.description.gsub("\n", "<br>") %></p>
-</div>
+<div style='<%= header_style %>'>Description</div>
+<div><%= raw @youtube_vidoe.description.gsub("\n", "<br>") %></div>
 
-<div class="tags">
-  <h2>Tags</h2>
-  <p style='color: grey'><%= @youtube_vidoe.tags.join(', ') %></p>
-</div>
+<div style='<%= header_style %>'>Tags</div>
+<div><%= @youtube_vidoe.tags.join(', ') %></div>
 
-<div class="notes">
-  <h2>Notes</h2>
-  <p>... placeholder ...</p>
+<div style='<%= header_style %>'>Notes</div>
+<div>
+  ... placeholder ...
 </div>
