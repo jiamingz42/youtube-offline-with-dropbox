@@ -7,7 +7,11 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_youtube_digest_to_evernote(options = {})
     @youtube_vidoe = options[:youtube_vidoe]
-    mail(to: EVERNOTE_EMAIL, subject: "#{@youtube_vidoe.title} @Youtube #Youtube")
+    mail(
+      to: EVERNOTE_EMAIL,
+      cc: 'benjamin19890721+evernote@gmail.com',
+      subject: "#{@youtube_vidoe.title} @Youtube #Youtube"
+    )
   end
 
 end
