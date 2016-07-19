@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match 'webhook_reciever/email', :via => [:get, :post]
 
   get 'youtube/download_to_dropbox'
+  get 'youtube/save_to_evernote'
 
   get 'job/status/:job_id', to: 'jobs#status'
 
