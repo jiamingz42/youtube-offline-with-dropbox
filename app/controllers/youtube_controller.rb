@@ -26,7 +26,7 @@ class YoutubeController < ApplicationController
     Rails.logger.debug!('OK', context: binding)
     render json: { success: true, sent_at: Time.now }
   rescue StandardError => e
-    render json: { success: false, error_message: e.message }
+    render json: { success: false, error_message: e.message, backtrace: e.backtrace }
   end
 
 end
