@@ -5,7 +5,7 @@ class ExpandUrlService
 
   def lengthen(url)
     uri = URI(url)
-    Net::HTTP.new(uri.host, 80).get(uri.path).header['location']
+    Net::HTTP.new(uri.host, 80).get(uri.path).header['location'] || url
   end
 
   class << self
@@ -15,3 +15,4 @@ class ExpandUrlService
   end
 
 end
+
