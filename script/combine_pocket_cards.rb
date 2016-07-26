@@ -19,8 +19,10 @@ puts
 
 cards = list.cards
 selected_cards = cards.select do |card|
-  /Pocket/i.match(card.name)
+  /Pocket:/i.match(card.name)
 end
+
+extracted_data_list = []
 
 selected_cards.each do |c|
 
@@ -32,9 +34,7 @@ selected_cards.each do |c|
     %r{^via Pocket (http[s]?://.*)\n}
   
   if match_data_for_article_url = regex_for_article_url.match(desc)
-    article_url = match_data_for_article_url[1]
-    expanded_article_url = ExpandUrlService.lengthen(article_url)
-    extracted_data[:expanded_article_url] = expanded_article_url
+    extracted_data[:article_url] = ExpandUrlService.lengthen(match_data_for_article_url[1])
     desc = desc.gsub(regex_for_article_url, '')
   end
   
@@ -46,10 +46,29 @@ selected_cards.each do |c|
     desc = desc.gsub(regex_for_added_at_date_and_img_url, '')
   end
 
-  ap extracted_data
-  ap desc
-  puts
+  lines = desc.split("\n").map(&:chomp)
+  if lines.size == 1
+    extracted_data[:title] == lines.first
+  elsif lines.size == 2
+    extracted_data[:title], extracted_data[:description] = lines
+  else
+    raise StandardError
+  end
+
+  extracted_data_list << extracted_data
 end
 
-binding.pry
-42
+description = extracted_data_list
+  .map do |extracted_data|
+    desc = ""
+    desc += "#{extracted_data[:added_at]} [Link](#{extracted_data[:article_url]})\n"
+    desc += "**#{extracted_data[:title]}**\n\n"
+    desc += "#{extracted_data[:description]}\n\n" if extracted_data[:description]
+    desc += "![](#{extracted_data[:img_url].gsub(/http:/, 'https:')})\n\n" if extracted_data[:img_url]
+    desc
+  end
+  .join("------\n\n")
+
+puts description
+
+# Trello::Card.create(name: "Pocket Items #{extracted_data_list.size}", idList: list.name, desc: description)
