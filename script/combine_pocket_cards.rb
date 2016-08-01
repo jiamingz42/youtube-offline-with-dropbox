@@ -28,29 +28,46 @@ selected_cards.each do |c|
 
   extracted_data = {}
 
-  desc = c.desc.gsub(/^Tags:.*\n/, '')
+  desc = c.desc
 
-  regex_for_article_url = 
-    %r{^via Pocket (http[s]?://.*)\n}
-  
-  if match_data_for_article_url = regex_for_article_url.match(desc)
-    extracted_data[:article_url] = ExpandUrlService.lengthen(match_data_for_article_url[1])
-    desc = desc.gsub(regex_for_article_url, '')
+  # `begin` block keep variables `regex` and `match_data` local
+  desc = begin 
+    regex = %r{^\*\*\[(?<title>.*)\]\((?<article_url>.*)\)\*\*$}  
+    if match_data = regex.match(desc)
+      extracted_data[:title] = match_data['title']
+      extracted_data[:article_url] = ExpandUrlService.lengthen(match_data['article_url'])
+      desc.sub(regex, '')
+    else
+      desc
+    end
   end
   
-  regex_for_added_at_date_and_img_url = 
-    %r{^(\w{1,} \d{2}, \d{4} at \d{2}:\d{2}(AM|PM)) (http[s]?://.*)$}
-  if match_data_for_added_at_date_and_img_url = regex_for_added_at_date_and_img_url.match(desc)
-    extracted_data[:added_at] = match_data_for_added_at_date_and_img_url[1]
-    extracted_data[:img_url] = ExpandUrlService.lengthen(match_data_for_added_at_date_and_img_url[3])
-    desc = desc.gsub(regex_for_added_at_date_and_img_url, '')
+  desc = begin
+    regex = %r{^- (\w{1,} \d{2}, \d{4} at \d{2}:\d{2}(AM|PM))$}
+    if match_data = regex.match(desc)
+      extracted_data[:added_at] = match_data[1]
+      # extracted_data[:img_url] = ExpandUrlService.lengthen(match_data_for_added_at_date_and_img_url[3])
+      # extracted_data[:img_url] = nil if /no_image_card.png/.match(extracted_data[:img_url])
+      desc.sub(regex, '')
+    else
+      desc
+    end
   end
 
-  lines = desc.split("\n").map(&:chomp)
+  desc = begin
+    regex = %r{^!\[.*\]\((.*)\)$}
+    if match_data = regex.match(desc)
+      extracted_data[:img_url] = ExpandUrlService.lengthen(match_data[1])
+      extracted_data[:img_url] = nil if /no_image_card.png/.match(extracted_data[:img_url])
+      desc.sub(regex, '')
+    else
+      desc
+    end    
+  end
+
+  lines = desc.split("\n").reject(&:blank?).map(&:chomp)
   if lines.size == 1
-    extracted_data[:title] == lines.first
-  elsif lines.size == 2
-    extracted_data[:title], extracted_data[:description] = lines
+    extracted_data[:description] = lines.first.sub(/^- /, '').sub(/$/, ' ...')
   else
     raise StandardError
   end
@@ -68,6 +85,8 @@ description = extracted_data_list
     desc
   end
   .join("------\n\n")
+
+puts "Pocket Items (#{extracted_data_list.size})\n\n"
 
 puts description
 
