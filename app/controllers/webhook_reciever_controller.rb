@@ -15,6 +15,20 @@ class WebhookRecieverController < ApplicationController
       render :status => 500 and return
     end
 
+    if message.subject_match?(/Save New Pocket Item/)
+      regex = /(https:\/\/www.youtube.com\/watch\?.*)/
+      match = regex.match(message.plain_body)
+      if match.nil?
+        Rails.logger.debug!('No Match', context: binding)
+        render :text => 'No Match' and return
+      else
+        youtube_long_url = match[0]
+        @service = YoutubeService.new(youtube_long_url)
+        @progress = @service.call
+        render :json => @progress and return
+      end
+    end
+
     if message.subject_match?(/Youtube Video/)
       regex = /(http[s]?:\/\/youtu\.be\/.*)/
       match = regex.match(message.plain_body)
