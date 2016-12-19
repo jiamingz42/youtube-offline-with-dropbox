@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.1.7"
+# ruby "2.3.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -43,7 +43,6 @@ gem 'pocket-ruby', :git => 'https://github.com/benjamin19890721/pocket-ruby.git'
 gem 'wunderlist-api', :git => 'https://github.com/z-jason/wunderlist-api.git'
 gem 'yt', '~> 0.25.5'
 gem 'httparty'
-gem 'nokogiri'
 gem 'ruby-trello', require: 'trello'
 gem 'bitly'
 gem 'amazon-review'
